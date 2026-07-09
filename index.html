@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinePortal</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Üst Menü / Header -->
+    <header class="navbar">
+        <div class="logo">Cine<span>Portal</span></div>
+        <nav class="nav-menu">
+            <a href="#" id="menu-movies" class="active" onclick="filterCategory('movies')">Filmler</a>
+            <a href="#" id="menu-series" onclick="filterCategory('series')">Diziler</a>
+        </nav>
+        <div class="controls">
+            <button id="lang-toggle" onclick="toggleLanguage()">EN</button>
+            <button id="theme-toggle" onclick="toggleTheme()">☀️</button>
+        </div>
+    </header>
+
+    <!-- Ana İçerik Alanı -->
+    <main class="container">
+        <h2 id="section-title">Popüler Filmler</h2>
+        <div id="content-grid" class="grid"></div>
+    </main>
+
+    <!-- Detay ve Oyuncu (Player) Modalı -->
+    <div id="detail-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modal-body">
+                <!-- JS tarafından doldurulacak -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
