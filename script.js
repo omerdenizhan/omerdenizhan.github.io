@@ -6,8 +6,8 @@ const themeToggleBtn = document.getElementById('theme-toggle');
 const sunIcon = document.getElementById('sun-icon');
 const moonIcon = document.getElementById('moon-icon');
 
-// LocalStorage kontrolü (Varsayılan olarak Koyu Mod başlatıyoruz)
-let isDarkMode = localStorage.getItem('theme') !== 'light'; // Eğer 'light' değilse dark mod olsun
+// Varsayılan olarak Koyu Mod (Dark Mode) aktif başlasın
+let isDarkMode = localStorage.getItem('theme') !== 'light';
 
 function applyTheme() {
     if (isDarkMode) {
@@ -23,52 +23,72 @@ function applyTheme() {
     }
 }
 
-// Sayfa yüklendiğinde temayı uygula
 applyTheme();
 
-// Butona tıklandığında temayı değiştir
 themeToggleBtn.addEventListener('click', () => {
     isDarkMode = !isDarkMode;
-    
-    // Basit bir dönüş animasyonu
-    themeToggleBtn.style.transform = isDarkMode ? "rotate(360deg)" : "rotate(-360deg)";
-    setTimeout(() => { themeToggleBtn.style.transform = "none"; }, 400);
-
+    // Buton tıklama rotasyon animasyonu
+    themeToggleBtn.style.transform = isDarkMode ? "rotate(360deg) scale(1.1)" : "rotate(-360deg) scale(1.1)";
+    setTimeout(() => { themeToggleBtn.style.transform = "none"; }, 500);
     applyTheme();
 });
 
-// --- Fetch and Render Markdown Content ---
-async function fetchContent() {
-    const contentDiv = document.getElementById('content');
+// --- Dynamic Markdown Splitter & Card Generator ---
+async function fetchAndRenderCards() {
+    const wrapper = document.getElementById('cards-wrapper');
     
     try {
         const response = await fetch(MARKDOWN_URL);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
         
         const markdownText = await response.text();
-        const htmlContent = marked.parse(markdownText);
         
-        contentDiv.style.opacity = 0;
-        setTimeout(() => {
-            contentDiv.innerHTML = htmlContent;
-            contentDiv.style.opacity = 1;
-            contentDiv.style.transition = "opacity 0.5s ease-in";
-        }, 300);
+        // Markdown satırlarını ayırıp başlık yapılarına göre bölme işlemi
+        const lines = markdownText.split('\n');
+        let sections = [];
+        let currentSection = [];
+        
+        for (let line of lines) {
+            // Eğer satır #, ## veya ### ile başlıyorsa yeni bir kart bölümü başlatır
+            if (/^#{1,3}\s/.test(line.trim())) {
+                if (currentSection.length > 0) {
+                    sections.push(currentSection.join('\n'));
+                }
+                currentSection = [line];
+            } else {
+                currentSection.push(line);
+            }
+        }
+        if (currentSection.length > 0) {
+            sections.push(currentSection.join('\n'));
+        }
+        
+        // Temizleme: Spinner'ı kaldır
+        wrapper.innerHTML = '';
+        
+        // Her bölümü ayrı bir kart (.profile-card) olarak ekleme
+        sections.forEach((sectionMarkdown) => {
+            if (sectionMarkdown.trim() === '') return; // Boş alanları atla
+            
+            const cardElement = document.createElement('div');
+            cardElement.className = 'profile-card';
+            
+            // marked.js kütüphanesiyle markdown'ı HTML'e çevirip karta basıyoruz
+            cardElement.innerHTML = marked.parse(sectionMarkdown);
+            wrapper.appendChild(cardElement);
+        });
 
     } catch (error) {
-        contentDiv.innerHTML = `
-            <div style="text-align:center; color: #ef4444;">
-                <h3>Oops! Content could not be loaded.</h3>
-                <p>Please check your internet connection or the GitHub URL.</p>
-                <small>${error.message}</small>
+        wrapper.innerHTML = `
+            <div class="profile-card" style="text-align:center; border: 1px solid #ef4444;">
+                <h3 style="color:#ef4444;">Connection Error</h3>
+                <p>Failed to parse the GitHub README file. Please check the repository URL.</p>
+                <small style="color:var(--text-muted);">${error.message}</small>
             </div>
         `;
-        console.error("Fetch error:", error);
+        console.error("Error loading content:", error);
     }
 }
 
-// Fetch işlemini başlat
-fetchContent();
+// Sayfa yüklendiğinde kartları oluştur
+fetchAndRenderCards();
