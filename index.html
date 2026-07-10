@@ -1,122 +1,35 @@
 <!DOCTYPE html>
-<html lang="tr" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ömer Faruk Denizhan | Portfolio</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>Profile Card</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<body class="bg-lightBg text-slate-800 dark:bg-darkBg dark:text-slate-100 min-h-screen font-sans antialiased relative selection:bg-indigo-500 selection:text-white">
+<body>
 
-    <div class="fixed top-6 right-6 z-50">
-        <button id="theme-toggle" class="relative p-3 rounded-full bg-white dark:bg-darkCard shadow-lg hover:shadow-xl border border-slate-200 dark:border-slate-700 focus:outline-none overflow-hidden group">
-            <i id="theme-toggle-light-icon" class="fas fa-sun text-amber-500 text-xl block dark:hidden transform group-hover:rotate-45 duration-300"></i>
-            <i id="theme-toggle-dark-icon" class="fas fa-moon text-indigo-400 text-xl hidden dark:block transform group-hover:-rotate-12 duration-300"></i>
-        </button>
-    </div>
+    <button id="theme-toggle" aria-label="Toggle Dark Mode">
+        <svg id="sun-icon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg id="moon-icon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
 
-    <main class="max-w-5xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-        
-        <header class="bg-lightCard dark:bg-darkCard rounded-3xl p-8 shadow-md border border-slate-100 dark:border-slate-800/50 mb-8 text-center relative overflow-hidden card-hover">
-            <div class="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-2xl"></div>
-            <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-purple-500/10 rounded-full blur-2xl"></div>
-            
-            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent dark:from-indigo-400 dark:to-cyan-400 mb-4">
-                👋 Merhaba, Ben Ömer
-            </h1>
-            <div class="inline-block mb-4">
-                <img src="https://visitor-badge.laobi.icu/badge?page_id=omerdenizhan&left_text=Visitors" alt="Visitors" class="rounded shadow-sm">
-            </div>
-            
-            <div class="max-w-2xl mx-auto mt-2">
-                <h3 class="text-lg font-semibold text-indigo-600 dark:text-indigo-400 mb-1">💫 Hakkımda</h3>
-                <p class="text-slate-600 dark:text-slate-400">
-                    💻 Fırsat bulduğum her an projelerim üzerinde çalışıyor, kendimi geliştirmeye ve üretmeye devam ediyorum.
-                </p>
-            </div>
-        </header>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            
-            <div class="space-y-8">
-                
-                <section class="bg-lightCard dark:bg-darkCard rounded-3xl p-6 shadow-md border border-slate-100 dark:border-slate-800/50 card-hover">
-                    <h2 class="text-xl font-bold mb-4 flex items-center gap-2 text-slate-700 dark:text-slate-300">
-                        <i class="fas fa-code text-indigo-500"></i> 💻 Teknolojiler
-                    </h2>
-                    <div class="flex flex-wrap gap-2.5">
-                        <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" class="tech-badge">
-                        <img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" class="tech-badge">
-                        <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="TailwindCSS" class="tech-badge">
-                        <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" alt="JavaScript" class="tech-badge">
-                        <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python" class="tech-badge">
-                        <img src="https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white" alt="PHP" class="tech-badge">
-                        <img src="https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin" class="tech-badge">
-                    </div>
-                </section>
-
-                <section class="bg-lightCard dark:bg-darkCard rounded-3xl p-6 shadow-md border border-slate-100 dark:border-slate-800/50 card-hover">
-                    <h2 class="text-xl font-bold mb-4 flex items-center gap-2 text-slate-700 dark:text-slate-300">
-                        <i class="fas fa-project-diagram text-indigo-500"></i> ⚙️ Projeler
-                    </h2>
-                    <div class="space-y-3">
-                        <a href="https://github.com/omerdenizhan/IPTV-M3U-Editor" target="_blank" class="project-item group">
-                            <span class="font-medium group-hover:text-indigo-500 dark:group-hover:text-indigo-400">IPTV-M3U-Editor</span>
-                            <img src="https://img.shields.io/badge/Repository-IPTV_M3U_Editor-red?style=flat-square&logo=Github" alt="IPTV-M3U-Editor" class="rounded">
-                        </a>
-                        <a href="https://github.com/omerdenizhan/IPTV-M3U" target="_blank" class="project-item group">
-                            <span class="font-medium group-hover:text-indigo-500 dark:group-hover:text-indigo-400">IPTV-M3U</span>
-                            <img src="https://img.shields.io/badge/Repository-IPTV_M3U-red?style=flat-square&logo=Github" alt="IPTV-M3U" class="rounded">
-                        </a>
-                    </div>
-                </section>
-
-                <section class="bg-lightCard dark:bg-darkCard rounded-3xl p-6 shadow-md border border-slate-100 dark:border-slate-800/50 card-hover">
-                    <h2 class="text-xl font-bold mb-4 flex items-center gap-2 text-slate-700 dark:text-slate-300">
-                        <i class="fas fa-share-alt text-indigo-500"></i> 🌐 Sosyal Medya
-                    </h2>
-                    <div class="flex flex-wrap gap-2 social-container">
-                        <a href="https://facebook.com" target="_blank"><img src="https://img.shields.io/badge/Facebook-1877F2?style=flat-square&logo=facebook&logoColor=white" alt="Facebook"></a>
-                        <a href="https://instagram.com" target="_blank"><img src="https://img.shields.io/badge/Instagram-E4405F?style=flat-square&logo=instagram&logoColor=white" alt="Instagram"></a>
-                        <a href="https://x.com" target="_blank"><img src="https://img.shields.io/badge/Twitter/X-000000?style=flat-square&logo=x&logoColor=white" alt="X"></a>
-                        <a href="https://t.me/dnzhn77" target="_blank"><img src="https://img.shields.io/badge/Telegram-26A5E4?style=flat-square&logo=telegram&logoColor=white" alt="Telegram"></a>
-                        <a href="https://reddit.com" target="_blank"><img src="https://img.shields.io/badge/Reddit-FF4500?style=flat-square&logo=reddit&logoColor=white" alt="Reddit"></a>
-                        <a href="mailto:omer_denizhan@msn.com"><img src="https://img.shields.io/badge/Email-D14836?style=flat-square&logo=gmail&logoColor=white" alt="Email"></a>
-                    </div>
-                </section>
-
-            </div>
-
-            <div class="space-y-8">
-                
-                <section class="bg-lightCard dark:bg-darkCard rounded-3xl p-6 shadow-md border border-slate-100 dark:border-slate-800/50 card-hover flex flex-col items-center justify-center space-y-4">
-                    <h2 class="text-xl font-bold self-start flex items-center gap-2 text-slate-700 dark:text-slate-300 w-full">
-                        <i class="fab fa-github text-indigo-500"></i> 📊 GitHub İstatistikleri
-                    </h2>
-                    
-                    <div class="w-full space-y-4 flex flex-col items-center github-stats-container">
-                        <img src="https://github-readme-stats.shion.dev/api?username=omerdenizhan&theme=dark&hide_border=false&include_all_commits=false&count_private=false" alt="GitHub Stats" class="stat-img dark-only">
-                        <img src="https://streak-stats.demolab.com/?user=omerdenizhan&theme=dark&hide_border=false" alt="GitHub Streak" class="stat-img dark-only">
-                        <img src="https://github-readme-stats.shion.dev/api/top-langs/?username=omerdenizhan&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact" alt="Top Langs" class="stat-img dark-only">
-                        
-                        <img src="https://github-readme-stats.shion.dev/api?username=omerdenizhan&theme=dark&hide_border=false&include_all_commits=false&count_private=false" alt="GitHub Stats" class="stat-img light-only">
-                        <img src="https://streak-stats.demolab.com/?user=omerdenizhan&theme=dark&hide_border=false" alt="GitHub Streak" class="stat-img light-only">
-                        <img src="https://github-readme-stats.shion.dev/api/top-langs/?username=omerdenizhan&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact" alt="Top Langs" class="stat-img light-only">
-                    </div>
-                </section>
-
-            </div>
+    <main class="card-container">
+        <div id="content" class="markdown-body">
+            <div class="loader"></div>
         </div>
-
-        <footer class="mt-12 text-center text-sm text-slate-400 dark:text-slate-500 flex items-center justify-center gap-2">
-            <i class="far fa-clock"></i> <span>Son Güncelleme: 10 Temmuz 2026</span>
-        </footer>
-
     </main>
 
     <script src="script.js"></script>
