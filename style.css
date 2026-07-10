@@ -1,4 +1,4 @@
-/* --- Variables for Light/Dark Mode --- */
+/* --- Default (Light) Mode Variables --- */
 :root {
     --bg-color: #f4f6f8;
     --card-bg: #ffffff;
@@ -10,7 +10,8 @@
     --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-[data-theme="dark"] {
+/* --- Dark Mode Variables --- */
+body.dark-mode {
     --bg-color: #0f172a;
     --card-bg: #1e293b;
     --text-color: #f1f5f9;
@@ -35,7 +36,7 @@ body {
     justify-content: center;
     align-items: center;
     padding: 2rem 1rem;
-    transition: var(--transition);
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* --- Theme Toggle Button --- */
@@ -58,7 +59,7 @@ body {
 }
 
 #theme-toggle:hover {
-    transform: translateY(-3px) rotate(15deg);
+    transform: translateY(-3px) scale(1.05);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -66,20 +67,17 @@ body {
     width: 24px;
     height: 24px;
     color: var(--text-color);
-    transition: var(--transition);
 }
 
 /* --- Card Container --- */
 .card-container {
     background-color: var(--card-bg);
     width: 100%;
-    max-width: 900px; /* Geniş kart görünümü */
+    max-width: 900px;
     padding: 3rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
-    transition: var(--transition);
-    opacity: 0;
-    transform: translateY(30px);
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
     animation: fadeUp 0.8s forwards ease-out;
 }
 
@@ -130,10 +128,8 @@ body {
 
 /* --- Keyframes --- */
 @keyframes fadeUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes spin {
@@ -143,11 +139,6 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
-    .card-container {
-        padding: 2rem;
-    }
-    #theme-toggle {
-        top: 1rem;
-        right: 1rem;
-    }
+    .card-container { padding: 2rem; }
+    #theme-toggle { top: 1rem; right: 1rem; }
 }
