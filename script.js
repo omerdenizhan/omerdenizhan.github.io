@@ -8,6 +8,7 @@ const moonIcon = document.getElementById('moon-icon');
 
 // Default to Dark Mode
 let isDarkMode = localStorage.getItem('theme') !== 'light';
+
 function applyTheme() {
     if (isDarkMode) {
         document.body.classList.add('dark-mode');
@@ -23,6 +24,7 @@ function applyTheme() {
 }
 
 applyTheme();
+
 themeToggleBtn.addEventListener('click', () => {
     isDarkMode = !isDarkMode;
     themeToggleBtn.style.transform = isDarkMode ? "rotate(360deg) scale(1.1)" : "rotate(-360deg) scale(1.1)";
@@ -33,13 +35,17 @@ themeToggleBtn.addEventListener('click', () => {
 // --- Dynamic Markdown Splitter & Card Generator ---
 async function fetchAndRenderCards() {
     const wrapper = document.getElementById('cards-wrapper');
+    
     try {
         const response = await fetch(MARKDOWN_URL);
         if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+        
         const markdownText = await response.text();
+        
         const lines = markdownText.split('\n');
         let sections = [];
         let currentSection = [];
+        
         for (let line of lines) {
             // Başlık yapılarına (#, ##, ###) göre ayırma
             if (/^#{1,3}\s/.test(line.trim())) {
@@ -61,8 +67,10 @@ async function fetchAndRenderCards() {
         // Bölümleri ayrı kartlara bas
         sections.forEach((sectionMarkdown) => {
             if (sectionMarkdown.trim() === '') return;
+            
             const cardElement = document.createElement('div');
             cardElement.className = 'profile-card';
+            
             cardElement.innerHTML = marked.parse(sectionMarkdown);
             wrapper.appendChild(cardElement);
         });
@@ -78,5 +86,6 @@ async function fetchAndRenderCards() {
         console.error("Error loading content:", error);
     }
 }
+
 // Initialize
 fetchAndRenderCards();
