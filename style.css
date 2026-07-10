@@ -1,159 +1,80 @@
-/* Modern Renk Değişkenleri (Varsayılan Koyu Tema) */
+/* Tailwind Temel Renk Değişkenleri Ayarı */
 :root {
-    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-    --card-bg: rgba(30, 41, 59, 0.7);
-    --card-border: rgba(255, 255, 255, 0.08);
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --toggle-bg: #334155;
-    --shadow: rgba(0, 0, 0, 0.3);
+    --darkBg: #0f172a;
+    --darkCard: #1e293b;
+    --lightBg: #f8fafc;
+    --lightCard: #ffffff;
 }
 
-/* Açık Tema Değişkenleri */
-[data-theme="light"] {
-    --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-    --card-bg: rgba(255, 255, 255, 0.8);
-    --card-border: rgba(0, 0, 0, 0.08);
-    --text-main: #0f172a;
-    --text-muted: #475569;
-    --toggle-bg: #cbd5e1;
-    --shadow: rgba(0, 0, 0, 0.05);
-}
-
+/* Tüm Sayfada Yumuşak Renk ve Dönüşüm Geçişleri */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    transition: background-color 0.4s ease, border-color 0.4s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
 }
 
-body {
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg-gradient);
-    background-attachment: fixed;
-    color: var(--text-main);
-    min-height: 100vh;
-    padding: 2rem 1rem;
-    display: flex;
-    justify-content: center;
+/* Kartların Hover (Üzerine Gelme) Animasyonu */
+.card-hover:hover {
+    transform: translateY(-5px);
 }
 
-.container {
-    width: 100%;
-    max-width: 850px;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    position: relative;
-}
-
-/* Tema Değiştirme Butonu */
-.theme-toggle-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: var(--toggle-bg);
-    border: 1px solid var(--card-border);
-    color: var(--text-main);
-    padding: 0.6rem 1.2rem;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    box-shadow: 0 4px 6px var(--shadow);
-}
-
-.theme-toggle-btn:hover {
-    transform: translateY(-2px);
-}
-
-/* Modern Kart Tasarımı */
-.card {
-    background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    padding: 2rem;
-    box-shadow: 0 8px 32px var(--shadow);
-}
-
-/* Başlık Alanı */
-.header-card {
-    margin-top: 3.5rem;
-    text-align: center;
-}
-
-.header-card h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.visitor-badge {
-    margin-top: 1rem;
-    display: inline-block;
-}
-
-h2 {
-    font-size: 1.3rem;
-    margin-bottom: 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-bottom: 2px solid var(--card-border);
-    padding-bottom: 0.5rem;
-}
-
-p {
-    color: var(--text-muted);
-    line-height: 1.6;
-}
-
-/* Rozet ve Link Grupları */
-.flex-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-}
-
-.flex-group a img, .flex-group img {
-    border-radius: 6px;
+/* Teknoloji Rozetleri Animasyonu */
+.tech-badge {
+    height: 2rem; /* 32px h-8 */
+    border-radius: 0.375rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease;
 }
-
-.flex-group a:hover img {
-    transform: translateY(-3px);
+.tech-badge:hover {
+    transform: scale(1.05);
 }
 
-/* Projeler Özel Stil */
-.project-link {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-}
-
-/* İstatistik Grafik Alanı */
-.stats-grid {
+/* Proje Link Elemanları Standart Tasarımı */
+.project-item {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
     align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(241, 245, 249, 1);
+}
+html.dark .project-item {
+    border-color: rgba(51, 65, 85, 0.5);
+    background-color: rgba(30, 41, 59, 0.5);
+}
+.project-item:hover {
+    background-color: rgba(238, 242, 255, 1);
+}
+html.dark .project-item:hover {
+    background-color: rgba(49, 46, 129, 0.3);
 }
 
-.stats-grid img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
+/* Sosyal Medya Butonları */
+.social-container a img {
+    border-radius: 0.25rem;
+    transition: transform 0.15s ease;
+}
+.social-container a img:hover {
+    transform: scale(1.05);
 }
 
-/* Mobil Uyumluluk */
-@media (max-width: 600px) {
-    .card {
-        padding: 1.5rem;
-    }
-    .header-card h1 {
-        font-size: 2rem;
-    }
+/* GitHub İstatistik Resimlerinin Tema Ayarları */
+.github-stats-container .stat-img {
+    width: 100%;
+    max-width: 24rem; /* max-w-sm */
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Tema Duyarlı Resim Görünürlüğü */
+html.dark .dark-only {
+    display: block;
+}
+html.dark .light-only {
+    display: none;
+}
+html:not(.dark) .dark-only {
+    display: none;
+}
+html:not(.dark) .light-only {
+    display: block;
+    filter: invert(0.05) brightness(0.95); /* Açık modda koyu temalı görseli şık göstermek için */
 }
