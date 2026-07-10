@@ -1,8 +1,8 @@
 /* --- Global Custom Properties --- */
 :root {
-    /* Light Mode: Soft gray background with very light, distinct gray cards */
+    /* Light Mode */
     --bg-color: #e5e7eb; 
-    --card-bg: #f9fafb; /* İstediğin açık ton gri kart rengi */
+    --card-bg: #f9fafb; 
     --text-color: #1f2937;
     --text-muted: #4b5563;
     --accent-color: #2563eb;
@@ -13,7 +13,7 @@
 }
 
 body.dark-mode {
-    /* Dark Mode: Dark gray page background, deep dark blue cards */
+    /* Dark Mode */
     --bg-color: #18181b; 
     --card-bg: #1e293b; 
     --text-color: #f8fafc;
@@ -35,7 +35,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     min-height: 100vh;
-    padding: 6rem 1.5rem 3rem 1.5rem;
+    padding: 3rem 1.5rem;
     transition: background-color 0.5s ease;
     overflow-x: hidden;
 }
@@ -65,10 +65,62 @@ body {
     animation: slideIn 0.8s forwards cubic-bezier(0.1, 1, 0.1, 1);
 }
 
-/* Card Hover Animation */
 .profile-card:hover {
     transform: translateY(-8px) scale(1.01);
     box-shadow: var(--hover-shadow);
+}
+
+/* --- Header Card Specific Styling --- */
+.page-header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2.5rem; 
+    padding: 2rem 3rem;
+    animation-delay: 0s;
+}
+
+.page-header h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--text-color);
+    letter-spacing: -0.5px;
+    text-align: center;
+    margin: 0; 
+    padding: 0 65px; 
+}
+
+/* --- Theme Toggle Button --- */
+#theme-toggle {
+    position: absolute;
+    right: 2rem;
+    background-color: var(--bg-color); 
+    border: none;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    z-index: 1000;
+}
+
+body.dark-mode #theme-toggle {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+#theme-toggle:hover {
+    transform: scale(1.1) rotate(18deg);
+}
+
+#theme-toggle .icon {
+    width: 26px;
+    height: 26px;
+    color: var(--text-color);
 }
 
 /* --- Markdown Elements Inside Cards --- */
@@ -112,35 +164,6 @@ body {
     margin-top: 1rem;
 }
 
-/* --- Theme Toggle Button --- */
-#theme-toggle {
-    position: absolute;
-    right: 0;
-    /* Fixed yerine header içinde absolute kullanıyoruz */
-    background-color: var(--card-bg);
-    border: none;
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: var(--card-shadow);
-    transition: var(--transition);
-    z-index: 1000;
-}
-
-#theme-toggle:hover {
-    transform: scale(1.1) rotate(18deg);
-}
-
-#theme-toggle .icon {
-    width: 26px;
-    height: 26px;
-    color: var(--text-color);
-}
-
 /* --- Loaders --- */
 .loader-container {
     display: flex;
@@ -159,10 +182,7 @@ body {
 
 /* --- Keyframe Animations --- */
 @keyframes slideIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes spin {
@@ -170,41 +190,14 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* Staggered animation delays for smooth entry */
+/* Staggered animation delays for dynamic cards */
 .profile-card:nth-child(1) { animation-delay: 0.1s; }
 .profile-card:nth-child(2) { animation-delay: 0.2s; }
 .profile-card:nth-child(3) { animation-delay: 0.3s; }
 .profile-card:nth-child(4) { animation-delay: 0.4s; }
 .profile-card:nth-child(5) { animation-delay: 0.5s; }
 
-/* Responsive */
-@media (max-width: 768px) {
-    body { padding-top: 5rem; }
-    .profile-card { padding: 2rem; }
-    #theme-toggle { top: 1rem; right: 1rem; width: 45px; height: 45px; }
-}
-
-/* --- Header Styling --- */
-.page-header {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2rem;
-    margin-bottom: 3rem;
-}
-
-.page-header h1 {
-    font-size: 2.8rem;
-    font-weight: 800;
-    color: var(--text-color);
-    letter-spacing: -0.5px;
-    text-align: center;
-    padding: 0 70px; /* Butonun yazının üstüne binmemesi için boşluk */
-    animation: slideIn 0.8s forwards cubic-bezier(0.1, 1, 0.1, 1);
-}
-
-/* Slightly reduce header size for mobile devices */
+/* --- Responsive (Mobil Uyumluluk) --- */
 @media (max-width: 768px) {
     body { padding-top: 2rem; }
     
@@ -212,22 +205,19 @@ body {
     
     .page-header {
         flex-direction: column;
-        margin-top: 1rem;
+        padding: 2rem 1.5rem;
     }
     
     .page-header h1 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         padding: 0;
-        margin-top: 3rem; /* Mobilde buton için üstte yer bırakıyoruz */
+        margin-top: 4rem; 
     }
 
-    /* Mobilde ekran daralınca buton bozulmasın diye tekrar köşeye sabitliyoruz */
     #theme-toggle {
-        position: fixed;
-        top: 1rem;
-        right: 1rem;
+        top: 1.5rem;
+        right: 1.5rem;
         width: 45px;
         height: 45px;
     }
 }
-
