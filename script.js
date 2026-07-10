@@ -8,7 +8,6 @@ const moonIcon = document.getElementById('moon-icon');
 
 // Default to Dark Mode
 let isDarkMode = localStorage.getItem('theme') !== 'light';
-
 function applyTheme() {
     if (isDarkMode) {
         document.body.classList.add('dark-mode');
@@ -24,10 +23,8 @@ function applyTheme() {
 }
 
 applyTheme();
-
 themeToggleBtn.addEventListener('click', () => {
     isDarkMode = !isDarkMode;
-    // Rotation animation on click
     themeToggleBtn.style.transform = isDarkMode ? "rotate(360deg) scale(1.1)" : "rotate(-360deg) scale(1.1)";
     setTimeout(() => { themeToggleBtn.style.transform = "none"; }, 500);
     applyTheme();
@@ -36,20 +33,15 @@ themeToggleBtn.addEventListener('click', () => {
 // --- Dynamic Markdown Splitter & Card Generator ---
 async function fetchAndRenderCards() {
     const wrapper = document.getElementById('cards-wrapper');
-    
     try {
         const response = await fetch(MARKDOWN_URL);
         if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
-        
         const markdownText = await response.text();
-        
-        // Split markdown lines to detect main headers
         const lines = markdownText.split('\n');
         let sections = [];
         let currentSection = [];
-        
         for (let line of lines) {
-            // Check for #, ## or ### to create a new section block
+            // Başlık yapılarına (#, ##, ###) göre ayırma
             if (/^#{1,3}\s/.test(line.trim())) {
                 if (currentSection.length > 0) {
                     sections.push(currentSection.join('\n'));
@@ -63,17 +55,14 @@ async function fetchAndRenderCards() {
             sections.push(currentSection.join('\n'));
         }
         
-        // Clear spinner
+        // Spinner'ı temizle
         wrapper.innerHTML = '';
         
-        // Generate separate cards for each section
+        // Bölümleri ayrı kartlara bas
         sections.forEach((sectionMarkdown) => {
             if (sectionMarkdown.trim() === '') return;
-            
             const cardElement = document.createElement('div');
             cardElement.className = 'profile-card';
-            
-            // Parse and inject HTML inside the card
             cardElement.innerHTML = marked.parse(sectionMarkdown);
             wrapper.appendChild(cardElement);
         });
@@ -89,6 +78,5 @@ async function fetchAndRenderCards() {
         console.error("Error loading content:", error);
     }
 }
-
-// Initialize on load
+// Initialize
 fetchAndRenderCards();
