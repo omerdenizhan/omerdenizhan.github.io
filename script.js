@@ -6,7 +6,7 @@ const themeToggleBtn = document.getElementById('theme-toggle');
 const sunIcon = document.getElementById('sun-icon');
 const moonIcon = document.getElementById('moon-icon');
 
-// Varsayılan olarak Koyu Mod (Dark Mode) aktif başlasın
+// Default to Dark Mode
 let isDarkMode = localStorage.getItem('theme') !== 'light';
 
 function applyTheme() {
@@ -27,7 +27,7 @@ applyTheme();
 
 themeToggleBtn.addEventListener('click', () => {
     isDarkMode = !isDarkMode;
-    // Buton tıklama rotasyon animasyonu
+    // Rotation animation on click
     themeToggleBtn.style.transform = isDarkMode ? "rotate(360deg) scale(1.1)" : "rotate(-360deg) scale(1.1)";
     setTimeout(() => { themeToggleBtn.style.transform = "none"; }, 500);
     applyTheme();
@@ -43,13 +43,13 @@ async function fetchAndRenderCards() {
         
         const markdownText = await response.text();
         
-        // Markdown satırlarını ayırıp başlık yapılarına göre bölme işlemi
+        // Split markdown lines to detect main headers
         const lines = markdownText.split('\n');
         let sections = [];
         let currentSection = [];
         
         for (let line of lines) {
-            // Eğer satır #, ## veya ### ile başlıyorsa yeni bir kart bölümü başlatır
+            // Check for #, ## or ### to create a new section block
             if (/^#{1,3}\s/.test(line.trim())) {
                 if (currentSection.length > 0) {
                     sections.push(currentSection.join('\n'));
@@ -63,17 +63,17 @@ async function fetchAndRenderCards() {
             sections.push(currentSection.join('\n'));
         }
         
-        // Temizleme: Spinner'ı kaldır
+        // Clear spinner
         wrapper.innerHTML = '';
         
-        // Her bölümü ayrı bir kart (.profile-card) olarak ekleme
+        // Generate separate cards for each section
         sections.forEach((sectionMarkdown) => {
-            if (sectionMarkdown.trim() === '') return; // Boş alanları atla
+            if (sectionMarkdown.trim() === '') return;
             
             const cardElement = document.createElement('div');
             cardElement.className = 'profile-card';
             
-            // marked.js kütüphanesiyle markdown'ı HTML'e çevirip karta basıyoruz
+            // Parse and inject HTML inside the card
             cardElement.innerHTML = marked.parse(sectionMarkdown);
             wrapper.appendChild(cardElement);
         });
@@ -90,5 +90,5 @@ async function fetchAndRenderCards() {
     }
 }
 
-// Sayfa yüklendiğinde kartları oluştur
+// Initialize on load
 fetchAndRenderCards();
