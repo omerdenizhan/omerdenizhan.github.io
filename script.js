@@ -2,12 +2,12 @@
 const i18n = {
   tr: {
     badge: "Sistem Güncelleniyor",
-    title: "Bakım Aşamasındayız",
+    title: "Yapım Aşamasında",
     desc: "Sizlere daha iyi bir deneyim sunabilmek için sistemlerimizi yeniliyoruz. Anlayışınız için teşekkür ederiz, en kısa sürede tekrar yayındayız."
   },
   en: {
     badge: "System Updating",
-    title: "Under Maintenance",
+    title: "Under Construction",
     desc: "We are currently updating our systems to provide you with a better experience. Thank you for your patience, we will be back online shortly."
   }
 };
@@ -20,7 +20,6 @@ const themeBtn = document.getElementById('themeToggle');
 const langBtn = document.getElementById('langToggle');
 const moonIcon = document.getElementById('moonIcon');
 const sunIcon = document.getElementById('sunIcon');
-
 const badgeText = document.getElementById('badgeText');
 const titleText = document.getElementById('titleText');
 const descText = document.getElementById('descText');
