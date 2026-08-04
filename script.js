@@ -1,52 +1,136 @@
-// --- Metin Verileri (TR / EN) ---
-const i18n = {
-  tr: {
-    badge: "Sistem Güncelleniyor",
-    title: "Yapım Aşamasında",
-    desc: "Sizlere daha iyi bir deneyim sunabilmek için sistemlerimizi yeniliyoruz. Anlayışınız için teşekkür ederiz, en kısa sürede tekrar yayındayız."
-  },
-  en: {
-    badge: "System Updating",
-    title: "Under Construction",
-    desc: "We are currently updating our systems to provide you with a better experience. Thank you for your patience, we will be back online shortly."
-  }
+const translations = {
+    tr: {
+        title: "Yapım Aşamasında!",
+        desc: "Web sitemiz şu anda sizler için yenilenmektedir. Çok daha güzel ve işlevsel bir deneyimle pek yakında yayındayız.",
+        footer: "2026 Lisansızdır | Ömer Denizhan",
+        nextLang: "EN"
+    },
+    en: {
+        title: "Under Construction!",
+        desc: "Our website is currently undergoing maintenance to bring you a better experience. We will be live very soon.",
+        footer: "2026 Unlicensed | Ömer Denizhan",
+        nextLang: "TR"
+    }
 };
 
-let currentLang = 'tr';
+let currentLang = localStorage.getItem('site_lang') || 'tr';
+let currentTheme = localStorage.getItem('site_theme') || 'light';
 
-// DOM Elemanları
-const htmlEl = document.documentElement;
-const themeBtn = document.getElementById('themeToggle');
-const langBtn = document.getElementById('langToggle');
-const moonIcon = document.getElementById('moonIcon');
-const sunIcon = document.getElementById('sunIcon');
-const badgeText = document.getElementById('badgeText');
-const titleText = document.getElementById('titleText');
-const descText = document.getElementById('descText');
+if (currentTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+} else {
+    document.documentElement.setAttribute('data-theme', 'light');
+}
 
-// --- Tema Değiştirme Mantığı ---
-themeBtn.addEventListener('click', () => {
-  const currentTheme = htmlEl.getAttribute('data-theme');
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  
-  htmlEl.setAttribute('data-theme', newTheme);
+function initUI() {
+    // Sol Üst: GitHub Butonu (FontAwesome)
+    const topLeftDiv = document.createElement('div');
+    topLeftDiv.className = 'top-left';
+    topLeftDiv.innerHTML = `
+        <a href="https://github.com/omerdenizhan" target="_blank" class="top-btn" title="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+    `;
+    document.body.appendChild(topLeftDiv);
 
-  if (newTheme === 'light') {
-    moonIcon.style.display = 'none';
-    sunIcon.style.display = 'block';
-  } else {
-    moonIcon.style.display = 'block';
-    sunIcon.style.display = 'none';
-  }
-});
+    // Sağ Üst Kapsayıcı
+    const topRightDiv = document.createElement('div');
+    topRightDiv.className = 'top-right';
 
-// --- Dil Değiştirme Mantığı ---
-langBtn.addEventListener('click', () => {
-  currentLang = currentLang === 'tr' ? 'en' : 'tr';
-  htmlEl.setAttribute('lang', currentLang);
+    // Dil Değiştirme Butonu
+    const langBtn = document.createElement('button');
+    langBtn.className = 'top-btn';
+    langBtn.id = 'lang-btn';
+    langBtn.title = 'Dil Değiştir / Change Language';
+    langBtn.textContent = translations[currentLang].nextLang;
+    langBtn.addEventListener('click', toggleLanguage);
 
-  // Metinleri Güncelle
-  badgeText.textContent = i18n[currentLang].badge;
-  titleText.textContent = i18n[currentLang].title;
-  descText.textContent = i18n[currentLang].desc;
-});
+    // Açık / Koyu Mod Butonu (FontAwesome)
+    const themeBtn = document.createElement('button');
+    themeBtn.className = 'top-btn';
+    themeBtn.id = 'theme-btn';
+    themeBtn.title = 'Tema Değiştir / Toggle Theme';
+    themeBtn.innerHTML = currentTheme === 'dark' 
+        ? `<i class="fas fa-sun"></i>`
+        : `<i class="fas fa-moon"></i>`;
+    themeBtn.addEventListener('click', toggleTheme);
+    topRightDiv.appendChild(langBtn);
+    topRightDiv.appendChild(themeBtn);
+    document.body.appendChild(topRightDiv);
+
+    // Merkez Bakım Kartı
+    const card = document.createElement('div');
+    card.className = 'maintenance-card';
+    card.id = 'main-card';
+    updateCardContent(card);
+    document.body.insertBefore(card, document.querySelector('footer'));
+}
+
+function updateCardContent(cardElement) {
+    const t = translations[currentLang];
+    cardElement.innerHTML = `
+        <div class="image-container">
+            <i class="fas fa-person-digging"></i>
+        </div>
+        <h1>${t.title}</h1>
+        <p>${t.desc}</p>
+    `;
+}
+
+function toggleLanguage() {
+    currentLang = currentLang === 'tr' ? 'en' : 'tr';
+    localStorage.setItem('site_lang', currentLang);
+    // Dil değiştiğinde daktilo indeksini sıfırlıyoruz ki yeni dilden baştan yazmaya başlasın
+    index = 0;
+    const langBtn = document.getElementById('lang-btn');
+    langBtn.style.transform = 'rotate(360deg) scale(1.1)';
+    setTimeout(() => {
+        langBtn.textContent = translations[currentLang].nextLang;
+        langBtn.style.transform = 'none';
+    }, 200);
+
+    const card = document.getElementById('main-card');
+    if (card) {
+        card.style.opacity = '0';
+        setTimeout(() => {
+            updateCardContent(card);
+            card.style.opacity = '1';
+        }, 200);
+    }
+}
+
+function toggleTheme() {
+    currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+    localStorage.setItem('site_theme', currentTheme);
+    const themeBtn = document.getElementById('theme-btn');
+    themeBtn.style.transform = 'rotate(360deg) scale(1.1)';
+    setTimeout(() => {
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeBtn.innerHTML = `<i class="fas fa-sun"></i>`;
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            themeBtn.innerHTML = `<i class="fas fa-moon"></i>`;
+        }
+        themeBtn.style.transform = 'none';
+    }, 200);
+}
+
+let index = 0;
+
+function writeText() {
+    const text = translations[currentLang].footer;
+    const animatedText = document.getElementById('animated-text');
+    if (animatedText) {
+        animatedText.innerHTML = text.slice(0, index);
+        index++;
+        if (index > text.length) {
+            index = 0; // Başa dönmesi için index'i sıfırlıyoruz
+        }
+    }
+    setTimeout(writeText, 100); // Her adım 100ms sürecek
+}
+
+writeText();
+
+window.addEventListener('DOMContentLoaded', initUI);
