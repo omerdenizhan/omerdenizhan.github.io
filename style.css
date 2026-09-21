@@ -43,6 +43,77 @@ body {
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
+.page-shell {
+    width: min(1100px, calc(100% - 32px));
+    margin: 80px auto 100px;
+}
+
+.readme-content {
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    padding: 42px;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.readme-content h1,
+.readme-content h2,
+.readme-content h3 {
+    color: var(--text-color);
+    margin: 1.5em 0 0.7em;
+}
+
+.readme-content h1:first-child,
+.readme-content h2:first-child {
+    margin-top: 0;
+}
+
+.readme-content p,
+.readme-content li {
+    color: var(--subtext-color);
+    line-height: 1.7;
+}
+
+.readme-content p,
+.readme-content ul,
+.readme-content ol,
+.readme-content blockquote,
+.readme-content pre {
+    margin-bottom: 1rem;
+}
+
+.readme-content a {
+    color: #2563eb;
+}
+
+.readme-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+.readme-content code,
+.readme-content pre {
+    background-color: var(--btn-hover);
+    border-radius: 8px;
+}
+
+.readme-content code {
+    padding: 2px 5px;
+}
+
+.readme-content pre {
+    overflow-x: auto;
+    padding: 16px;
+}
+
+.readme-content pre code {
+    padding: 0;
+}
+
+.error-box {
+    text-align: center;
+}
+
 /* Her Zaman Üstte Kalan Sabit Alanlar */
 .top-left {
     position: fixed;
@@ -90,57 +161,6 @@ body {
 
 .top-btn i {
     font-size: 20px;
-    transition: transform 0.4s ease;
-}
-
-/* Kart Görünümü */
-.maintenance-card {
-    background-color: var(--card-bg);
-    color: var(--text-color);
-    border-radius: 20px;
-    box-shadow: var(--shadow);
-    padding: 40px 30px;
-    max-width: 480px;
-    width: 90%;
-    text-align: center;
-    margin: 80px 0 100px 0;
-    transition: background-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease, opacity 0.3s ease;
-    animation: fadeIn 0.8s ease-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.image-container {
-    margin-bottom: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.image-container i {
-    font-size: 55px;
-    color: #f59e0b;
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-}
-
-.maintenance-card h1 {
-    font-size: 24px;
-    margin-bottom: 15px;
-    font-weight: 700;
-}
-
-.maintenance-card p {
-    font-size: 16px;
-    color: var(--subtext-color);
-    line-height: 1.6;
 }
 
 /* Sabit Footer */
@@ -158,15 +178,8 @@ footer {
     transition: background-color 0.4s ease;
 }
 
-.footer-content {
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-}
-
 #animated-text {
     color: rgb(255, 255, 255);
-    text-decoration: none;
 }
 
 /* Mobil Uyum */
@@ -181,10 +194,12 @@ footer {
     }
     .top-left { top: 15px; left: 15px; }
     .top-right { top: 15px; right: 15px; gap: 8px; }
-    .maintenance-card {
-        padding: 30px 20px;
-        margin: 70px 15px 90px 15px;
+    .page-shell {
+        width: min(100% - 24px, 1100px);
+        margin-top: 70px;
     }
-    .maintenance-card h1 { font-size: 20px; }
-    .maintenance-card p { font-size: 14px; }
+
+    .readme-content {
+        padding: 24px 18px;
+    }
 }
