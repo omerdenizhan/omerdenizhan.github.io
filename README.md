@@ -1,3 +1,1 @@
-## Yapım Aşamasında
-
-## Under Construction
+https://omerdenizhan.github.io/
