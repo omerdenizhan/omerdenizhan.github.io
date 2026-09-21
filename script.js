@@ -61,7 +61,7 @@ async function loadReadme() {
     if (!target) return;
 
     try {
-        const response = await fetch('https://raw.githubusercontent.com/omerdenizhan/omerdenizhan/main/README.MD');
+        const response = await fetch('https://raw.githubusercontent.com/omerdenizhan/omerdenizhan/refs/heads/main/README.MD');
         if (!response.ok) {
             throw new Error(`README yüklenemedi: ${response.status}`);
         }
